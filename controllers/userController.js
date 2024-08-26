@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const validator = require("validator");
 
-// Function to validate input data
+
 function validateUserData(data) {
   const { name, email, userRole } = data;
 
