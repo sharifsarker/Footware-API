@@ -3,7 +3,7 @@ const Product = require("../models/Product");
 
 // Function to validate product data
 function validateProductData(data) {
-  const { userId, images, name, price, oldPrice, sizes, colors, brand } = data;
+  const { userId, images, name, price, oldPrice, sizes, colors, brand,description } = data;
 
   if (
     !userId ||
@@ -16,21 +16,22 @@ function validateProductData(data) {
     sizes.length === 0 ||
     !colors ||
     colors.length === 0 ||
-    !brand
+    !brand ||
+    !description 
   ) {
     throw new Error("All fields are required and must not be empty.");
   }
 }
 
 async function addProduct(req, res) {
-  const { userId, images, name, price, oldPrice, sizes, colors, brand } = req.body;
+  const { userId, images, name, price, oldPrice, sizes, colors, brand,description } = req.body;
 
   try {
     // Validate data
     validateProductData(req.body);
 
     // Create a new product
-    const product = new Product({ userId, images, name, price, oldPrice, sizes, colors, brand });
+    const product = new Product({ userId, images, name, price, oldPrice, sizes, colors, brand,description });
     await product.save();
     res.status(201).send({ message: "Product added successfully", product });
   } catch (error) {
